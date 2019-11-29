@@ -1,0 +1,3 @@
+recursive-include b4/static *
+recursive-include b4/assets *
+recursive-include b4/templates *

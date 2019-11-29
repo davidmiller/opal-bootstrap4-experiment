@@ -1,0 +1,39 @@
+{% extends 'opal/patient_detail_base.html' %}
+
+{% block episode_list %}
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  New Episode
+</button>
+<hr />
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Episode</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>
+          This will create a new episode for this patient - are you sure?
+        </h3>
+
+        <form method="POST" action="{% url 'create-new-episode' %}">
+          {% csrf_token %}
+          <input type="hidden" name="patient_id" value="{{ patient.id }}">
+          <input type="submit" class="btn btn-primary" value="Create Episode">
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{ block.super }}
+{% endblock %}
