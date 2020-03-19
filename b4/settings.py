@@ -34,13 +34,13 @@ INSTALLED_APPS = [
     'reversion',
     'rest_framework',
     'rest_framework.authtoken',
-    'compressor',
+    # 'compressor',
     'opal',
     'opal.core.search',
     'opal.core.pathway',
     'opal.core.referencedata',
     'b4',
-
+    'webpack_loader',
     'django.contrib.admin',
 ]
 
@@ -156,7 +156,6 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 # Django Site identifier
@@ -262,6 +261,15 @@ VERSION_NUMBER  = '<0.0.1'
 # COMPRESS_PRECOMPILERS = (
 #     ('text/x-scss', 'sass --scss {infile} {outfile}'),
 # )
+
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': False,
+        'BUNDLE_DIR_NAME': '/bundles/',  # must end with slash
+        'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
+    }
+}
 
 try:
     from local_settings import *
