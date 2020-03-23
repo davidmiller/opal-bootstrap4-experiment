@@ -4,6 +4,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -150,10 +151,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'assets')
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_PATH, 'static'),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'frontend', 'dist')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'frontend'),
+)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -263,11 +265,11 @@ VERSION_NUMBER  = '<0.0.1'
 #     ('text/x-scss', 'sass --scss {infile} {outfile}'),
 # )
 
-FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': False,
-        'BUNDLE_DIR_NAME': '/bundles/',  # must end with slash
+        'BUNDLE_DIR_NAME': '/',  # must end with slash
         'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
     }
 }
