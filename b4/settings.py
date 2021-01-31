@@ -4,6 +4,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -34,17 +35,18 @@ INSTALLED_APPS = [
     'reversion',
     'rest_framework',
     'rest_framework.authtoken',
-    'compressor',
+    # 'compressor',
     'opal',
     'opal.core.search',
     'opal.core.pathway',
     'opal.core.referencedata',
     'b4',
-
+    'webpack_loader',
     'django.contrib.admin',
 ]
 
 MIDDLEWARE = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -149,14 +151,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'assets')
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_PATH, 'static'),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'frontend', 'dist')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'frontend'),
+)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 # Django Site identifier
@@ -262,6 +264,15 @@ VERSION_NUMBER  = '<0.0.1'
 # COMPRESS_PRECOMPILERS = (
 #     ('text/x-scss', 'sass --scss {infile} {outfile}'),
 # )
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': False,
+        'BUNDLE_DIR_NAME': '/',  # must end with slash
+        'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
+    }
+}
 
 try:
     from local_settings import *

@@ -3,6 +3,7 @@ Urls file for an opal application
 """
 from django.conf.urls import include, url
 from django.urls import path
+from django.views.generic import TemplateView
 from opal.views import IndexView
 from opal.urls import urlpatterns as opatterns
 
